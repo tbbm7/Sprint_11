@@ -1,0 +1,19 @@
+.constructor {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 656px;
+    width: 600px;
+}
+
+.constructor__list {
+    margin: 0 auto 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-left: 0px;
+    overflow-y: scroll;
+    min-height: 464px;
+}

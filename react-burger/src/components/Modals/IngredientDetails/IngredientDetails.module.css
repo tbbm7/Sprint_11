@@ -1,0 +1,30 @@
+.ingredient_details__modal {
+    width: 720px;
+    height: 538px;
+    background: #1C1C21;
+    border-radius: 40px;
+    position: absolute;
+    top: 200px;
+    left: 300px;
+    left: calc(100%-360px);
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.ingredient__modal_header {
+    display: flex;
+    justify-content: space-between;
+    width: 640px;
+    height: 64px;
+    align-items: center;
+    margin: 40px 40px 0;
+}
+
+.ingredient__modal_close {
+    background-image: url('../../../images/close.svg');
+    width: 24px;
+    height: 24px;
+    border: 0px;
+    cursor: pointer;
+}
