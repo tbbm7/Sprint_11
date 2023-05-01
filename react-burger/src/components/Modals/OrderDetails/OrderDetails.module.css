@@ -1,0 +1,24 @@
+.order_details__modal {
+    width: 720px;
+    height: 718px;
+    background: #1C1C21;
+    border-radius: 40px;
+    position: absolute;
+    top: 140px;
+    left: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ingredient__modal_close {
+    background-image: url('../../../images/close.svg');
+    width: 24px;
+    height: 24px;
+    border: 0px;
+    cursor: pointer;
+    position: absolute;
+    top: 60px;
+    right: 40px;
+}
+

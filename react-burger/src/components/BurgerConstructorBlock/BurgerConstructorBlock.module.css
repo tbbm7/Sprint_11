@@ -1,0 +1,10 @@
+.constructor__column {
+    display: grid;
+    grid-template-columns: 48px 536px;
+    align-items: center;
+    justify-items: center;
+}
+
+.constructor__element {
+    width: 536px;
+}

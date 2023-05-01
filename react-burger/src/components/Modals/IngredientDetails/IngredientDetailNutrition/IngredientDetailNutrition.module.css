@@ -1,0 +1,15 @@
+.ingredient__nutrition {
+    margin-top: 32px;
+    width: 506px;
+    height: 56px;
+    align-self: center;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ingredient__nutrition_element{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
