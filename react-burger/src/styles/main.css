@@ -3,11 +3,18 @@
 
 body {
     font-family: 'Jet Brains Mono', 'Arial', serif;
+    position: relative;
+}
+
+main {
+    height: calc(100vh - 88px);
+    display: flex;
+    justify-content: center;
+    gap: 24px
 }
 
 ::-webkit-scrollbar {
 width: 8px;
-
 margin-top: 10px;
 margin-bottom: 10px;
 position: absolute;

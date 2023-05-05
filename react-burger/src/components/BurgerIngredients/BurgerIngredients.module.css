@@ -1,12 +1,16 @@
 .ingredients {
   display: flex;
   flex-direction: column;
-  margin-top:40px
+  margin-top: 40px;
+  height: calc(100vh - 150px);
+}
+
+.ingredients__block_headers {
+  display: flex;
 }
 
 .ingredients__blocks {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  height: 74vh;
 }

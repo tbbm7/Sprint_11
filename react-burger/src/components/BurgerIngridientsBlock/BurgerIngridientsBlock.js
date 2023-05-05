@@ -1,27 +1,35 @@
-import styles from './BurgerIngridientsBlock.module.css'
-import IngredientCard from "../BurgerIngredientCard/IngredientCard"
-import PropTypes from "prop-types";
+import styles from './BurgerIngridientsBlock.module.css';
+import IngredientCard from '../BurgerIngredientCard/IngredientCard';
+import PropTypes from 'prop-types';
 
-export default function IngridientsBlock({ 
-    ingredientBlockName,
-    ingredientsArray
-    }) {
-    const ingredientGroupArray = ingredientsArray.filter(element => element.type === ingredientBlockName.value);
-     return (
-        <section className="mt-10">
-          <li id = {ingredientBlockName.value} className="text text_type_main-medium">{ingredientBlockName.name}</li>
-          <div className={styles.ingredient_block__grid}>
-          {ingredientGroupArray.map( groupIngredient =>
-            <IngredientCard 
-            key={groupIngredient.name}
-            ingredient={groupIngredient}></IngredientCard>
-        )}
-          </div>
-        </section> 
-     )
- };
+export default function BurgerIngridientsBlock({
+  ingredientBlockName,
+  ingredientsArray,
+  onClickIngredient,
+}) {
+  const ingredientGroupArray = ingredientsArray.filter(
+    (element) => element.type === ingredientBlockName.value,
+  );
 
-IngridientsBlock.propTypes = {
+  return (
+    <>
+      <div className="mt-10">
+        <p id={ingredientBlockName.value} className="text text_type_main-medium">
+          {ingredientBlockName.name}
+        </p>
+        <div className={styles.ingredient_block__grid}>
+          {ingredientGroupArray.map((groupIngredient, index) => (
+            <div key={groupIngredient._id} onClick={() => onClickIngredient(groupIngredient)}>
+              <IngredientCard ingredient={groupIngredient} num={index}></IngredientCard>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+BurgerIngridientsBlock.propTypes = {
   ingredientBlockName: PropTypes.object,
   ingredientsArray: PropTypes.array,
 };

@@ -1,0 +1,4 @@
+
+export const CURRENT_INGREDIENT = "SET_CURRENT_INGREDIENT";
+
+
