@@ -9,11 +9,12 @@
 }
 
 .constructor__list {
-    margin-top: 80px;
+    margin: 0 auto 0;
+    list-style: none;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    height: calc(100vh - 200px);
-    width: 600px;
-    border: solid 1px
+    padding-left: 0px;
+    overflow-y: scroll;
+    max-height: 464px;
 }

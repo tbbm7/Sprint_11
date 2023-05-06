@@ -1,4 +1,5 @@
 import styles from './IngredientDetailNutrition.module.css';
+import PropTypes from 'prop-types';
 
 export default function IngredientDetailNutrition({ ingredient }) {
   const ingredientCompositionArray = [
@@ -18,3 +19,7 @@ export default function IngredientDetailNutrition({ ingredient }) {
     </div>
   );
 }
+
+IngredientDetailNutrition.propTypes = {
+  ingredient: PropTypes.object,
+};

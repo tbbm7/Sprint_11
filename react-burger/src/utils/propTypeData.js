@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const propTypeData = {
+const propTypeData = PropTypes.shape({
   calories: PropTypes.number.isRequired,
   carbohydrates: PropTypes.number.isRequired,
   fat: PropTypes.number.isRequired,
@@ -13,6 +13,6 @@ const propTypeData = {
   type: PropTypes.string.isRequired,
   __v: PropTypes.number.isRequired,
   _id: PropTypes.string.isRequired,
-};
+}).isRequired;
 
 export default propTypeData;

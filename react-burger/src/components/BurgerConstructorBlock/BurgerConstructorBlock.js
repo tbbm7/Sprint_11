@@ -57,5 +57,6 @@ BurgerConstructorBlock.propTypes = {
   thumbnail: PropTypes.string,
   type: PropTypes.string,
   isLocked: PropTypes.bool,
-  ingredientUniqId: PropTypes.string
+  ingredientUniqId: PropTypes.string,
+  index: PropTypes.number
 };

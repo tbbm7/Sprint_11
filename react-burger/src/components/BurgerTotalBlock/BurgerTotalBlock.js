@@ -7,8 +7,7 @@ import { createOrder } from '../../services/actions/order';
 import { useDispatch } from 'react-redux';
 import { RESET_INGREDIENTS } from '../../services/actions/constructor';
 import { RESET_ORDER } from '../../services/actions/order';
-
-//const modalRoot = document.getElementById("modal");
+import PropTypes from 'prop-types';
 
 export default function BurgerTotalBlock({ ingredients, totalPrice }) {
   const [modal, isModalOpen] = useState(false);
@@ -50,3 +49,8 @@ export default function BurgerTotalBlock({ ingredients, totalPrice }) {
     </div>
   );
 }
+
+BurgerTotalBlock.propTypes = {
+  ingredients: PropTypes.object,
+  totalPrice: PropTypes.number,
+};
