@@ -1,0 +1,10 @@
+.ingredient_block__grid { 
+    width: 600px;
+    display: grid;
+    justify-content: center;
+    margin: 24px auto 0;
+    grid-template-columns: repeat(2, 272px);
+    row-gap: 32px;
+    column-gap: 24px;
+}
+
