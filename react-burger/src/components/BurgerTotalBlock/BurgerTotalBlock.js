@@ -4,10 +4,11 @@ import { useState } from 'react';
 import OrderDetails from '../Modals/OrderDetails/OrderDetails';
 import Modal from '../Modals/Modal/Modal';
 import { createOrder } from '../../services/actions/order';
-import { useDispatch } from 'react-redux';
 import { RESET_INGREDIENTS } from '../../services/actions/constructor';
 import { RESET_ORDER } from '../../services/actions/order';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function BurgerTotalBlock({ ingredients, totalPrice }) {
   const [modal, isModalOpen] = useState(false);
@@ -22,10 +23,15 @@ export default function BurgerTotalBlock({ ingredients, totalPrice }) {
     });
   };
 
+  const isAuth = useSelector((store) => store.userReducer.isAuth);
+
+  const navigate = useNavigate();
+
   const onClickButton = () => {
     isModalOpen(!modal);
-    dispatch(createOrder(ingredients));
+    isAuth ? dispatch(createOrder(ingredients)) : navigate('/login');
   };
+
   return (
     <div className={styles.constructor__total}>
       <div className={styles.constructor__order}>

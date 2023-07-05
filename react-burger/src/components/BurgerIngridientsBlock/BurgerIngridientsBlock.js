@@ -20,7 +20,7 @@ export default function BurgerIngridientsBlock({
         <div className={styles.ingredient_block__grid}>
           {ingredientGroupArray.map((groupIngredient, index) => (
             <div key={groupIngredient._id} onClick={() => onClickIngredient(groupIngredient)}>
-              <IngredientCard ingredient={groupIngredient}></IngredientCard>
+              <IngredientCard ingredient={groupIngredient} onClickIngredient={onClickIngredient}></IngredientCard>
             </div>
           ))}
         </div>

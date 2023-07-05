@@ -4,15 +4,12 @@ import {
     GET_INGREDIENTS_FAILED,
 } from '../actions/ingredients';
 
-
-
 const initialState = {
     ingredients: [],
     ingredientsRequest: false,
     ingredientsFailed: false,
     error: null
 };
-
 
 const ingredientsReducer = (state = initialState, action) => {
     switch(action.type){

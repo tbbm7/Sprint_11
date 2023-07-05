@@ -3,8 +3,6 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import BurgerIngridientsBlock from '../BurgerIngridientsBlock/BurgerIngridientsBlock';
-import Modal from '../Modals/Modal/Modal';
-import IngredientDetails from '../Modals/IngredientDetails/IngredientDetails';
 import { useSelector, useDispatch } from 'react-redux';
 import { CURRENT_INGREDIENT } from '../../services/actions/ingredientDetails';
 
@@ -49,15 +47,9 @@ export default function BurgerIngredients() {
   }, [bunRefInView, sauceRefInView, mainRefInView]);
 
   const dispatch = useDispatch();
-  const [modal, isModalOpen] = useState(false);
 
   const onClickIngredient = (groupIngredient) => {
     dispatch({ type: CURRENT_INGREDIENT, payload: groupIngredient });
-    isModalOpen(!modal);
-  };
-
-  const toggleModal = () => {
-    isModalOpen(!modal);
   };
 
   return (
@@ -103,11 +95,6 @@ export default function BurgerIngredients() {
           </div>
         )}
       </div>
-      {modal && (
-        <Modal toggleModal={toggleModal}>
-          <IngredientDetails />
-        </Modal>
-      )}
     </>
   );
 }
