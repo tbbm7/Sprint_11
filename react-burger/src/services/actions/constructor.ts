@@ -12,7 +12,7 @@ export const REORDER_INGREDIENT = 'REORDER_INGREDIENT';
 
 export const addIngredient = (
     ingredientId: string,
-    ingredient: IIngredient
+    ingredient: IIngredient | any
 ): IAddIngredient => {
     return {
         type: ADD_INGREDIENT,

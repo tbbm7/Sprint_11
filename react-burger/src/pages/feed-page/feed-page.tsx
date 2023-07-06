@@ -7,28 +7,27 @@ import {
   wsConnectionStartOrdersAction,
   wsConnectionClosedOrdersAction,
 } from '../../services/actions/wsAction';
+import { WS_URL_ALL } from '../../utils/variables';
 
 export const FeedPage: FC | any = () => {
   const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(wsConnectionStartOrdersAction());
+    dispatch(wsConnectionStartOrdersAction(WS_URL_ALL));
     return () => {
       dispatch(wsConnectionClosedOrdersAction());
     };
   }, []);
 
   const { orders, total, totalToday } = useSelector((store) => store.wsReducer);
-
-  const ordersDone = orders.filter((item) => item.status === 'done');
-  const ordersCreated = orders.filter((item) => item.status === 'pending');
+  const ordersDone = orders?.filter((item) => item.status === 'done');
+  const ordersCreated = orders?.filter((item) => item.status === 'pending');
 
   return (
     orders && (
       <main className={styles.feed__main}>
         <p className="text text_type_main-large">Лента заказов</p>
         <div className={styles.feed__container}>
-          <OrderList orders={orders} isFeedList={false} />
+          <OrderList orders={orders} isPageOrders={true} />
           <OrderCounters
             ordersDone={ordersDone}
             ordersCreated={ordersCreated}

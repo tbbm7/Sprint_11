@@ -8,8 +8,8 @@ import {
 } from "../types/data";
 
 
-const initialState: ICurrentIngredientInitialState = {
-  currentIngredient: null,
+export const initialState: ICurrentIngredientInitialState = {
+  currentIngredient: undefined,
 };
 
 export const currentIngredientReducer = (state = initialState, action: TCurrenIngredientAction

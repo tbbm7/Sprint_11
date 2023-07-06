@@ -1,7 +1,7 @@
 
 import { combineReducers } from 'redux';
-import ingredientsReducer from './ingredients';
-import constructorReducer from './constructor'
+import {ingredientsReducer} from './ingredients';
+import {constructorReducer} from './constructor'
 import { currentOrderReducer } from './order'
 import { currentIngredientReducer } from './ingredientDetails'
 import { userReducer } from './userForm'

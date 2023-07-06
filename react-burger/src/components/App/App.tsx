@@ -27,21 +27,27 @@ const App: FC = () => {
   useEffect(() => {
     dispatch(checkUserAccess());
     dispatch(getItems());
+    return () => {};
   }, [dispatch]);
 
   const storeSelector = useSelector((state) => state);
   const location = useLocation();
-  const background = location.state?.locationIngredient || location;
-console.log(storeSelector)
+  const background =
+    location.state?.locationIngredient ||
+    location.state?.locationFeed ||
+    location.state?.locationProfile ||
+    location;
+
   return (
     <>
       <AppHeader />
       <Routes location={background}>
         <Route path="/" element={<MainPage />} />
         <Route path="ingredients/:id" element={<IngredientPage />} />
-        <Route path="feed/:id" element={<OrderPage />} />
+        <Route path="feed/:id" element={<OrderPage isProfilePage={false} />} />
         <Route path="feed" element={<FeedPage />} />
         <Route path="orders" element={<ProfilePage />} />
+        <Route path="profile/orders/:id" element={<OrderPage isProfilePage={true} />} />
         <Route
           path="login"
           element={
@@ -74,15 +80,6 @@ console.log(storeSelector)
             </ProtectedRoute>
           }
         />
-        {/* <Route
-          path="profile"
-          element={
-            <ProtectedRoute onlyUnAuth={false}>
-              <ProfilePage />
-            </ProtectedRoute>
-          }
-        /> */}
-
         <Route
           path={'profile'}
           element={
@@ -112,7 +109,7 @@ console.log(storeSelector)
             path="/feed/:id"
             element={
               <Modal isModalRoute={true}>
-                <FeedPageDetails />
+                <FeedPageDetails isProfilePage={false} />
               </Modal>
             }
           />
@@ -120,7 +117,16 @@ console.log(storeSelector)
       )}
       {location.state?.locationProfile && (
         <Routes>
-          <Route path="/profile/orders/:id" element={<Modal isModalRoute={true}></Modal>} />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <ProtectedRoute onlyUnAuth={false}>
+                <Modal isModalRoute={true}>
+                  <FeedPageDetails isProfilePage={true} />
+                </Modal>
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       )}
     </>

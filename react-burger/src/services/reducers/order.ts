@@ -7,14 +7,13 @@ import {
 
 import { IOrderInitialState, TOrderAction } from "../types/data";
 
-
 const initialState : IOrderInitialState = {
   order: null,
   orderRequest: false,
   orderFailed: false,
 };
 
-export const currentOrderReducer = (state = initialState, action: TOrderAction
+const currentOrderReducer = (state = initialState, action: TOrderAction
   ): IOrderInitialState => {
   switch (action.type) {
     case GET_ORDER_REQUEST:
@@ -46,3 +45,5 @@ export const currentOrderReducer = (state = initialState, action: TOrderAction
       return state;
   }
 };
+
+export {currentOrderReducer, initialState};

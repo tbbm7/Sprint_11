@@ -41,6 +41,4 @@ const ingredientsReducer = (state = initialState, action : TIngredientsAction
     }
 }
 
-  
-
-export default ingredientsReducer
+export {ingredientsReducer, initialState};

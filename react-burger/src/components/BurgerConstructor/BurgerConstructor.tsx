@@ -11,7 +11,7 @@ import { IIngredient } from '../../services/types/data';
 
 const BurgerConstructor: FC = () => {
   const ingredients = useSelector((store) => store.constructorList);
-  const burgerFillingStore = ingredients.fillings;
+  const burgerFillingStore : Array<IIngredient> = ingredients.fillings;
   const bunStore = ingredients.bun;
 
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const BurgerConstructor: FC = () => {
   });
 
   const burgerFillingPrice = useMemo(() => {
-    return burgerFillingStore.reduce((sum, item) => sum + item.price, 0);
+    return burgerFillingStore.reduce((sum: any, item: any) => sum + item.price, 0);
   }, [burgerFillingStore]);
 
   const burgerbunPrice = useMemo(() => {
@@ -41,7 +41,7 @@ const BurgerConstructor: FC = () => {
   const borderColor = isHover ? 'lightblue' : 'transparent';
 
   return (
-    <div className={styles.constructor} ref={dropTarget}  style={{ borderColor }}>
+    <div className={styles.constructor__build} ref={dropTarget} data-testid='drag-destination' style={{ borderColor }}>
       {bunStore !== null && (
         <BurgerConstructorBlock
           type="top"

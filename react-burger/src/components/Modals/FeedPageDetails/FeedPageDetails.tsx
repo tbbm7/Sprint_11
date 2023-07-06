@@ -7,8 +7,9 @@ import { IIngredient } from '../../../services/types/data';
 import { IOrder } from '../../../services/types/data';
 import { useMemo } from 'react';
 
-export const FeedPageDetails: FC | any = () => {
-  const { orders } = useSelector((store) => store.wsReducer);
+export const FeedPageDetails: FC | any = (isProfilePage: boolean | undefined) => {
+
+  const { orders } = useSelector((store) => store.wsReducer); 
   const { id } = useParams();
   const order: IOrder | undefined = orders.find((item) => item._id === id);
 
@@ -43,9 +44,9 @@ export const FeedPageDetails: FC | any = () => {
         <p className={`text text_type_main-medium ${style.feed_page__name}`}>{order.name}</p>
         <p className="text text_type_main-medium pt-15">Состав:</p>
         <div className={`text text_type_main-medium ${style.feed_page__list}`}>
-          {orderIngredientsFiltered.map((ingredient: IIngredient) => {
+          {orderIngredientsFiltered.map((ingredient: IIngredient, index: number) => {
             return (
-              <div className={style.feed_element}>
+              <div className={style.feed_element} key={index}>
                 <div className={style.feed_element__image}>
                   <img
                     className={style.feed__image}

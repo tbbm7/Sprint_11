@@ -13,10 +13,11 @@ const ordersStatus: any = {
   done: 'Выполнен',
 };
 
-const OrderListElement: FC<IOrderement> = ({ isFeedList, order }) => {
+const OrderListElement: FC<IOrderement> = ({ order, isPageOrders }) => {
   const curOffset = new Date().getTimezoneOffset() / 60;
   const GMT = 'i-GTM' + (curOffset > 0 ? '-' + curOffset : '+' + -curOffset);
   const location = useLocation();
+
   const ingredients = useSelector((store) => store.ingredientList.ingredients);
 
   const orderIngredients =
@@ -37,8 +38,8 @@ const OrderListElement: FC<IOrderement> = ({ isFeedList, order }) => {
     <div className={style.feed_element__container}>
       <Link
         className={`text_color_primary ${style.feed_element__link}`}
-        to={`/feed/${order._id}`}
-        state={{ locationFeed: location }}>
+        to={isPageOrders ? `/feed/${order._id}` : `/profile/orders/${order._id}`}
+        state={isPageOrders ? { locationFeed: location } : { locationProfile: location }}>
         <div className={style.feed_element__order}>
           <p className="text text_type_digits-default">{`#${order.number}`}</p>
           <p className="text text_type_main-default text_color_inactive">

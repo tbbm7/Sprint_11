@@ -65,7 +65,7 @@ const initialState : IUserInitialState = {
   changeUserDataFailed: false,
 };
 
-export function userReducer(state = initialState, action: TUserActions
+function userReducer(state = initialState, action: TUserActions
   ): IUserInitialState {
   switch (action.type) {
     case USER_REGISTER_FORM_SUBMIT: {
@@ -211,3 +211,5 @@ export function userReducer(state = initialState, action: TUserActions
       return state;
   }
 }
+
+export {userReducer, initialState};

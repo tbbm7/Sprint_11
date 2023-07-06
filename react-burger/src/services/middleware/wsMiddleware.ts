@@ -1,33 +1,22 @@
 ﻿import { Middleware, MiddlewareAPI } from 'redux';
-import { getCookie } from '../../utils/cookie';
 import {
-  TWsOrdersActions,
-  TWsOrdersUserActions,
+  TWsOrdersActions
 } from '../actions/wsAction';
-
-import { WS_CONNECTION_START_ORDERS,
-  WS_CONNECTION_START_ORDERS_USER} from '../components/index'
 import { AppDispatch, RootState } from '../types';
 
-const wsMiddleware = (wsUrl: string, wsActions: TWsOrdersActions | TWsOrdersUserActions): Middleware => (
+const wsMiddleware = (wsActions: TWsOrdersActions): Middleware => (
   store: MiddlewareAPI<AppDispatch, RootState>,
 ) => {
   let socket: WebSocket | null = null;
-  
-  return (next) => (action) => {
-    const { dispatch, getState } = store;
-    const { isAuth } = getState().userReducer;
-    const token = isAuth ? `?token=${getCookie('accessToken')}` : ''
 
-    const { type } = action;
+  return (next) => (action) => {
+    const { dispatch } = store;
+    const { type, payload } = action;
     const { wsInit, onOpen, onClose, onError, onOrders } = wsActions;
 
-    if (type === wsInit && type === WS_CONNECTION_START_ORDERS_USER) {
-      socket = new WebSocket(`${wsUrl}${token}`);
-    }
-
-    if (type === wsInit && type === WS_CONNECTION_START_ORDERS) {
-      socket = new WebSocket(`${wsUrl}/all`);
+    if (type === wsInit) {
+      const wsUrl = payload;
+      socket = new WebSocket(wsUrl);
     }
 
     if (socket) {
@@ -36,7 +25,7 @@ const wsMiddleware = (wsUrl: string, wsActions: TWsOrdersActions | TWsOrdersUser
       };
 
       socket.onerror = (event) => {
-        dispatch({ type: onError, orders: event });
+        dispatch({ type: onError, error: event });
       };
 
       socket.onmessage = (event) => {

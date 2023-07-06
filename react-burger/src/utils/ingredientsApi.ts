@@ -1,5 +1,3 @@
-import { getCookie } from '../utils/cookie';
-
 const config = {
   API_URL: 'https://norma.nomoreparties.space/api',
   headers: {
@@ -15,12 +13,12 @@ export function getlIngredientsApi() {
   return fetch(`${config.API_URL}/ingredients`).then(checkResponse);
 }
 
-export function orderApi(ingredientsList: Array<string>) {
+export function orderApi(ingredientsList: Array<string>, accessToken: string | undefined) {
   return fetch(`${config.API_URL}/orders`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${getCookie('accessToken')}`,
+      Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({
       ingredients: ingredientsList

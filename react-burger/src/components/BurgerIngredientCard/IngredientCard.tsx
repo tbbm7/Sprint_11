@@ -19,6 +19,11 @@ const IngredientCard: FC<IIngredientCard> = ({ ingredient, onClickIngredient }) 
     item: { ingridientElement },
   });
 
+  const path = useMemo(
+    () => ({ pathname: `${location.pathname}/${ingredient._id}`, state: { background: location } }),
+    [location, ingredient._id],
+  );
+
   const counter = useMemo(() => {
     if (bun != null) {
       if (ingridientElement.type === 'bun' && ingridientElement._id === bun._id) {
@@ -33,7 +38,11 @@ const IngredientCard: FC<IIngredientCard> = ({ ingredient, onClickIngredient }) 
 
   return (
     <>
-      <div id={ingridientElement._id} ref={dragRef} className={styles.ingredient}>
+      <div
+        id={ingridientElement._id}
+        ref={dragRef}
+        className={styles.ingredient}
+        data-testid="ingredient-card">
         <Counter count={counter} size="default" extraClass="m-1" />
         <Link
           to={`/ingredients/${ingridientElement._id}`}

@@ -14,7 +14,7 @@ export const resetOrder = (): IResetOrder => {
   };
 };
 
-export function createOrder(ingredients: IIngredients) {
+export function createOrder(ingredients: IIngredients, accessToken: string | undefined) {
   return function (dispatch: AppDispatch) {
     const ingredientsOrderList = [
       ingredients.bun._id,
@@ -24,9 +24,8 @@ export function createOrder(ingredients: IIngredients) {
     dispatch({
       type: GET_ORDER_REQUEST,
     });
-    orderApi(ingredientsOrderList)
+    orderApi(ingredientsOrderList, accessToken)
       .then((res) => {
-        console.log('res', res)
         dispatch({
           type: GET_ORDER_SUCCESS,
           order: res.order.number,

@@ -68,7 +68,7 @@ export interface IIngredient {
     image_large: string;
     __v: number;
     ingredientUniqId?: string | undefined;
-    ingridientElement: IIngredient | any;
+    ingridientElement: IIngredient;
 }
 
 export interface IBurgerConstructorBlock {
@@ -111,7 +111,7 @@ export interface IBurgerIngridientsBlock {
 
 export interface IIngredientCard {
     ingredient: IIngredient;
-    onClickIngredient: any;
+    onClickIngredient: () => void;
 }
 
 export interface IIngredients {
@@ -152,7 +152,7 @@ export interface IChangeUserDataRequest {
 export interface IConstructorInitialState {
     readonly bun: null | IIngredient;
     readonly fillings: Array<IIngredient>;
-    readonly number?: Array<IIngredient>;
+    readonly number?: null;
 }
 
 export interface IAddIngredient {
@@ -207,7 +207,7 @@ export interface IOrdersInitialState {
 }
 
 export interface ICurrentIngredientInitialState {
-    currentIngredient: IIngredient | null;
+    currentIngredient: IIngredient | undefined;
 }
 
 export interface ICurrentIngredient {
@@ -216,8 +216,8 @@ export interface ICurrentIngredient {
 }
 
 export interface IOrderList {
-    isFeedList: boolean;
     orders: Array<IOrder>;
+    isPageOrders: boolean | undefined;
 }
 
 export interface IOrderCounters {
@@ -228,8 +228,8 @@ export interface IOrderCounters {
 }
 
 export interface IOrderement {
-    isFeedList: boolean;
     order: IOrder;
+    isPageOrders: boolean | undefined;
 }
 
 export interface IOrderIngredientsList {
@@ -297,7 +297,6 @@ export interface IWebSocket {
     onClose: string;
     onClosed: string;
     onError: string;
-    onMessage: string;
 }
 
 export interface IUserRegisterFormSubmit {
@@ -382,6 +381,7 @@ export interface IWsConnectionSuccessOrdersAction {
 
 export interface IWsConnectionErrorOrdersAction {
     readonly type: typeof WS_CONNECTION_ERROR_ORDERS;
+    readonly error: string | any ;
 }
 
 export interface IWsConnectionClosedOrdersAction {

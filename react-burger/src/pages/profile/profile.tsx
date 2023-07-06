@@ -1,5 +1,5 @@
 ﻿import styles from './profile.module.css';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
 import { logoutUser } from '../../services/actions/userForm';
 import { useDispatch } from '../../services/hooks';
@@ -31,7 +31,7 @@ export const ProfilePage = (): JSX.Element => {
                 to="orders"
                 style={({ isActive }) => (isActive ? activeStyle : undefined)}
                 className={`text text_type_main-medium text_color_inactive ${styles.profile_link}`}
-                state={{ order: true }}
+                // state={{ order: true }}
                 end>
                 История заказов
               </NavLink>

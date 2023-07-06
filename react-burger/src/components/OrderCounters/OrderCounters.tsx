@@ -1,7 +1,6 @@
 ﻿import { FC } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import style from './OrderCounters.module.css';
-import { IOrderCounters } from '../../services/types/data';
+import { IOrderCounters, IOrder } from '../../services/types/data';
 
 const OrderCounters: FC<IOrderCounters> = ({ ordersDone, ordersCreated, total, totalToday }) => {
   return (
@@ -11,10 +10,10 @@ const OrderCounters: FC<IOrderCounters> = ({ ordersDone, ordersCreated, total, t
           <p className="text text_type_main-medium">Готовы:</p>
           {ordersDone && (
             <ul className={style.counter__order_numbers}>
-              {ordersDone.map((order: any) => {
+              {ordersDone.map((order: IOrder, index: number) => {
                 return (
                   <li
-                    key={uuidv4()}
+                    key={index}
                     className={`text text_type_digits-default ${style.counter__order_done}`}>
                     {order.number}
                   </li>
@@ -27,10 +26,10 @@ const OrderCounters: FC<IOrderCounters> = ({ ordersDone, ordersCreated, total, t
           <p className="text text_type_main-medium">В работе:</p>
           {ordersCreated && (
             <ul className={style.counter__order_numbers}>
-              {ordersCreated.map((order: any) => {
+              {ordersCreated.map((order: IOrder, index: number) => {
                 return (
                   <li
-                    key={uuidv4()}
+                    key={index}
                     className={`text text_type_digits-default ${style.counter__order_created}`}>
                     {order.number}
                   </li>

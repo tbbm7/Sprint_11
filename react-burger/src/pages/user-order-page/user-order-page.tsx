@@ -1,23 +1,28 @@
-﻿import { useEffect, FC } from 'react';
-import { useDispatch, useSelector } from '../../services/hooks';
+﻿import { FC } from 'react';
+import { useSelector } from '../../services/hooks';
 import OrderList from '../../components/OrderList/OrderList';
-
+import { useEffect } from 'react';
 import {
-  wsConnectionStartOrdersUserAction,
-  wsConnectionClosedOrdersUserAction,
+  wsConnectionStartOrdersAction,
+  wsConnectionClosedOrdersAction,
 } from '../../services/actions/wsAction';
+import { useDispatch } from '../../services/hooks';
+import { BASE_WS_URL } from '../../utils/variables';
+import { getCookie } from '../../utils/cookie';
+
 
 export const UserOrderPage: FC = () => {
+  const WS_URL_PROFILE = `${BASE_WS_URL}?token=${getCookie('accessToken')}`;
+
   const dispatch = useDispatch();
+  const { orders, error } = useSelector((store) => store.wsReducer);
 
   useEffect(() => {
-    dispatch(wsConnectionStartOrdersUserAction());
+    dispatch(wsConnectionStartOrdersAction(WS_URL_PROFILE));
     return () => {
-      dispatch(wsConnectionClosedOrdersUserAction());
+      dispatch(wsConnectionClosedOrdersAction());
     };
   }, []);
 
-  const { userOrders } = useSelector((store) => store.wsReducer);
-
-  return userOrders && <OrderList orders={userOrders} isFeedList={true} />;
+  return orders && <OrderList orders={orders} isPageOrders={false} />;
 };

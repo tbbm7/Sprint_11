@@ -1,7 +1,7 @@
 ﻿import { FC } from 'react';
 import style from './OrderIngredientsImages.module.css';
 import { IOrderIngredientsList } from '../../services/types/data';
-import { v4 as uuidv4 } from 'uuid';
+
 
 const OrderIngredientsImages: FC<IOrderIngredientsList> = ({ ingredients }) => {
   const isCounterVisible: any = () => {
@@ -18,7 +18,7 @@ const OrderIngredientsImages: FC<IOrderIngredientsList> = ({ ingredients }) => {
       {ingredients.map((ingredient, index) => {
         if (index < 5) {
           return (
-            <li key={uuidv4()} className={style.order_img__element} style={{ zIndex: 15 - index }}>
+            <li key={index} className={style.order_img__element} style={{ zIndex: 15 - index }}>
               <img
                 className={style.order_img__image}
                 src={ingredient.image_mobile}
@@ -28,7 +28,7 @@ const OrderIngredientsImages: FC<IOrderIngredientsList> = ({ ingredients }) => {
           );
         } else if (index === 5) {
           return (
-            <li key={uuidv4()} className={style.order_img__element} style={{ zIndex: 15 - index }}>
+            <li key={index} className={style.order_img__element} style={{ zIndex: 15 - index }}>
               <img
                 className={style.order_img__image}
                 src={ingredient.image_mobile}
