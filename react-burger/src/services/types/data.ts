@@ -37,10 +37,22 @@
 
     CHANGE_USER_DATA_FORM_SUBMIT,
     CHANGE_USER_DATA_FORM_SUBMIT_SUCCESS,
-    CHANGE_USER_DATA_FORM_SUBMIT_FAILED
-} from "../../services/components/";
+    CHANGE_USER_DATA_FORM_SUBMIT_FAILED,
 
+    WS_CONNECTION_SUCCESS_ORDERS,
+    WS_CONNECTION_CLOSED_ORDERS,
+    WS_CONNECTION_ERROR_ORDERS,
+    WS_GET_ORDERS,
+    WS_CONNECTION_SUCCESS_ORDERS_USER,
+    WS_CONNECTION_CLOSED_ORDERS_USER,
+    WS_CONNECTION_ERROR_ORDERS_USER,
+    WS_GET_ORDERS_USER,
+    WS_CONNECTION_START_ORDERS_USER,
+    WS_CONNECTION_START_ORDERS
+
+} from "../../services/components/";
 import { ReactNode } from "react";
+
 
 export interface IIngredient {
     _id: string;
@@ -56,7 +68,7 @@ export interface IIngredient {
     image_large: string;
     __v: number;
     ingredientUniqId?: string | undefined;
-    ingridientElement: IIngredient;
+    ingridientElement: IIngredient | any;
 }
 
 export interface IBurgerConstructorBlock {
@@ -78,13 +90,15 @@ export interface IBurgerTotalBlock {
 
 export interface IModal {
     children?: ReactNode;
+    onCloseModal?: () => void;
+    isModalRoute?: boolean;
 }
 
 export interface IDoneIcon {
     className: string;
 }
 
-interface IIngredientBlockName {
+export interface IIngredientBlockName {
     name: string,
     value: string,
 }
@@ -105,6 +119,9 @@ export interface IIngredients {
     fillings: Array<IIngredient>;
 }
 
+export interface IIngredientDetailNutrition {
+    ingredient: IIngredient;
+}
 
 export interface IRegisterUserRequest {
     readonly name: string;
@@ -138,7 +155,6 @@ export interface IConstructorInitialState {
     readonly number?: Array<IIngredient>;
 }
 
-
 export interface IAddIngredient {
     readonly type: typeof ADD_INGREDIENT;
     readonly number: string;
@@ -160,18 +176,6 @@ export interface IResetIngredient {
     readonly type: typeof RESET_INGREDIENTS;
 }
 
-export type TConstructorAction =
-    | IAddIngredient
-    | IReorderIngredients
-    | IDeleteIngredient
-    | IResetIngredient;
-
-
-export type TIngredientsAction =
-    | IGetIngredientsRequest
-    | IGetIngredientsSuccess
-    | IGetIngredientsFailed;
-
 export interface IGetIngredientsRequest {
     readonly type: typeof GET_INGREDIENTS_REQUEST;
 }
@@ -186,7 +190,6 @@ export interface IGetIngredientsFailed {
     readonly error: string | null;
 }
 
-
 export interface IIngredientsInitialState {
     ingredients?: Array<IIngredient>,
     ingredientsRequest: boolean,
@@ -194,10 +197,14 @@ export interface IIngredientsInitialState {
     error?: string | null;
 }
 
-
-
-
-
+export interface IOrdersInitialState {
+    orders?: Array<IOrder>,
+    total?: number | null,
+    totalToday?: number | null,
+    ordersRequest: boolean,
+    ordersFailed?: boolean,
+    error?: string | null;
+}
 
 export interface ICurrentIngredientInitialState {
     currentIngredient: IIngredient | null;
@@ -208,11 +215,26 @@ export interface ICurrentIngredient {
     readonly payload: IIngredient;
 }
 
-export type TCurrenIngredientAction =
-    | ICurrentIngredient;
+export interface IOrderList {
+    isFeedList: boolean;
+    orders: Array<IOrder>;
+}
 
+export interface IOrderCounters {
+    total: number | any;
+    totalToday: number | any;
+    ordersDone: Array<IOrder> | any;
+    ordersCreated: Array<IOrder> | any;
+}
 
+export interface IOrderement {
+    isFeedList: boolean;
+    order: IOrder;
+}
 
+export interface IOrderIngredientsList {
+    ingredients: Array<IIngredient>;
+}
 
 export interface IOrderInitialState {
     order?: null | number;
@@ -220,6 +242,10 @@ export interface IOrderInitialState {
     orderFailed?: boolean;
 }
 
+export interface IProtectedRoute {
+    children: React.ReactElement;
+    onlyUnAuth?: boolean;
+}
 
 export interface IGetOrderRequest {
     readonly type: typeof GET_ORDER_REQUEST;
@@ -239,54 +265,40 @@ export interface IResetOrder {
     readonly type: typeof RESET_ORDER;
 }
 
-export type TOrderAction =
-    | IGetOrderRequest
-    | IGetOrderSuccess
-    | IGetOrderFailed
-    | IResetOrder;
 
-
-export interface IUserInitialState {
-    registerForm: IRegisterUserRequest;
-    loginForm: ILoginUserRequest;
-    user: IUser;
-    forgotPasswordForm: {
-        email: string;
-    };
-    resetPasswordForm: IResetPasswordRequest;
-    isAuth: undefined | boolean;
-    registrationSubmit: boolean;
-    registrationFailed: boolean;
-    loginSubmit: boolean;
-    loginFailed: boolean;
-    forgotPasswordSubmit: boolean;
-    forgotPasswordFailed: boolean;
-    resetEmailSent: boolean;
-    resetPasswordSubmit: boolean;
-    resetPasswordFailed: boolean;
-    changeUserDataSubmit: boolean;
-    changeUserDataFailed: boolean;
+export interface IOrder {
+    readonly _id: string;
+    readonly ingredients: Array<string>;
+    readonly status: string;
+    readonly name: string;
+    readonly createdAt: string;
+    readonly updatedAt: string;
+    readonly number: number;
 }
 
-export type TUserActions =
-    | IUserRegisterFormSubmit
-    | IUserRegisterFormSubmitSuccess
-    | IUserRegisterFormSubmitFailed
-    | IUserLoginFormSubmit
-    | IUserLoginFormSubmitSuccess
-    | IUserLoginFormSubmitFailed
-    | IUserAccessDenied
-    | IUserAccessAllowed
-    | IForgotPasswordFormSubmit
-    | IForgotPasswordFormSubmitSuccess
-    | IForgotPasswordFormSubmitFailed
-    | IResetPasswordFormSubmit
-    | IResetPasswordFormSubmitSuccess
-    | IResetPasswordFormSubmitFailed
-    | IChangeUserDataFormSubmit
-    | IChangeUserDataFormSubmitSuccess
-    | IChangeUserDataFormSubmitFailed;
+export interface IWsMessage {
+    readonly orders: Array<IOrder>;
+    readonly total: number;
+    readonly totalToday: number;
+}
 
+export interface IWsInitialState {
+    wsConnected: boolean;
+    orders: Array<IOrder>;
+    total: number;
+    totalToday: number;
+    errorState: boolean;
+    errorMessage: null | string;
+}
+
+export interface IWebSocket {
+    wsInit: string;
+    onOpen: string;
+    onClose: string;
+    onClosed: string;
+    onError: string;
+    onMessage: string;
+}
 
 export interface IUserRegisterFormSubmit {
     readonly type: typeof USER_REGISTER_FORM_SUBMIT;
@@ -360,3 +372,123 @@ export interface IChangeUserDataFormSubmitFailed {
     readonly type: typeof CHANGE_USER_DATA_FORM_SUBMIT_FAILED;
 }
 
+export interface IWsConnectionStartOrdersAction {
+    readonly type: typeof WS_CONNECTION_START_ORDERS;
+}
+
+export interface IWsConnectionSuccessOrdersAction {
+    readonly type: typeof WS_CONNECTION_SUCCESS_ORDERS;
+}
+
+export interface IWsConnectionErrorOrdersAction {
+    readonly type: typeof WS_CONNECTION_ERROR_ORDERS;
+}
+
+export interface IWsConnectionClosedOrdersAction {
+    readonly type: typeof WS_CONNECTION_CLOSED_ORDERS;
+}
+
+export interface IWsGetOrdersAction {
+    readonly type: typeof WS_GET_ORDERS;
+    readonly orders: TOrders;
+}
+
+export interface IWsConnectionStartOrdersUserAction {
+    readonly type: typeof WS_CONNECTION_START_ORDERS_USER;
+}
+
+export interface IWsConnectionSuccessOrdersUserAction {
+    readonly type: typeof WS_CONNECTION_SUCCESS_ORDERS_USER;
+}
+
+export interface IWsConnectionErrorOrdersUserAction {
+    readonly type: typeof WS_CONNECTION_ERROR_ORDERS_USER;
+}
+
+export interface IWsConnectionClosedOrdersUserAction {
+    readonly type: typeof WS_CONNECTION_CLOSED_ORDERS_USER;
+}
+
+export interface IWsGetOrdersUserAction {
+    readonly type: typeof WS_GET_ORDERS_USER;
+    readonly orders: TOrders;
+}
+
+export interface IUserInitialState {
+    registerForm: IRegisterUserRequest;
+    loginForm: ILoginUserRequest;
+    user: IUser;
+    forgotPasswordForm: {
+        email: string;
+    };
+    resetPasswordForm: IResetPasswordRequest;
+    isAuth: undefined | boolean;
+    registrationSubmit: boolean;
+    registrationFailed: boolean;
+    loginSubmit: boolean;
+    loginFailed: boolean;
+    forgotPasswordSubmit: boolean;
+    forgotPasswordFailed: boolean;
+    resetEmailSent: boolean;
+    resetPasswordSubmit: boolean;
+    resetPasswordFailed: boolean;
+    changeUserDataSubmit: boolean;
+    changeUserDataFailed: boolean;
+}
+
+export type TOrders = {
+    orders: Array<IOrder>;
+    total: number;
+    totalToday: number;
+}
+
+export type TConstructorAction =
+    | IAddIngredient
+    | IReorderIngredients
+    | IDeleteIngredient
+    | IResetIngredient;
+
+export type TOrderAction =
+    | IGetOrderRequest
+    | IGetOrderSuccess
+    | IGetOrderFailed
+    | IResetOrder;
+
+export type TIngredientsAction =
+    | IGetIngredientsRequest
+    | IGetIngredientsSuccess
+    | IGetIngredientsFailed;
+
+export type TCurrenIngredientAction =
+    | ICurrentIngredient;
+
+export type TUserActions =
+    | IUserRegisterFormSubmit
+    | IUserRegisterFormSubmitSuccess
+    | IUserRegisterFormSubmitFailed
+    | IUserLoginFormSubmit
+    | IUserLoginFormSubmitSuccess
+    | IUserLoginFormSubmitFailed
+    | IUserAccessDenied
+    | IUserAccessAllowed
+    | IForgotPasswordFormSubmit
+    | IForgotPasswordFormSubmitSuccess
+    | IForgotPasswordFormSubmitFailed
+    | IResetPasswordFormSubmit
+    | IResetPasswordFormSubmitSuccess
+    | IResetPasswordFormSubmitFailed
+    | IChangeUserDataFormSubmit
+    | IChangeUserDataFormSubmitSuccess
+    | IChangeUserDataFormSubmitFailed;
+
+export type TFeedOrdersActions =
+    | IWsConnectionStartOrdersAction
+    | IWsConnectionSuccessOrdersAction
+    | IWsConnectionErrorOrdersAction
+    | IWsConnectionClosedOrdersAction
+    | IWsGetOrdersAction
+    | IWsConnectionStartOrdersUserAction
+    | IWsConnectionSuccessOrdersUserAction
+    | IWsConnectionErrorOrdersUserAction
+    | IWsConnectionClosedOrdersUserAction
+    | IWsGetOrdersUserAction;

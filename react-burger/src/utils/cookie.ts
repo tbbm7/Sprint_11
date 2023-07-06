@@ -1,5 +1,6 @@
 ﻿export function parseCookie(name: string) {
   let authToken;
+  console.log(name)
   authToken = name.split('Bearer ')[1];
   return authToken;
 }

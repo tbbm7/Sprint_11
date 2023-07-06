@@ -8,6 +8,8 @@ import { FC } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
 import { useNavigate } from 'react-router-dom';
 import { IBurgerTotalBlock } from '../../services/types/data';
+import { resetOrder } from '../../services/actions/order';
+import { resetIngredient } from '../../services/actions/constructor';
 
 const BurgerTotalBlock: FC<IBurgerTotalBlock> = ({ ingredients, totalPrice }) => {
   const [modal, isModalOpen] = useState(false);
@@ -20,6 +22,12 @@ const BurgerTotalBlock: FC<IBurgerTotalBlock> = ({ ingredients, totalPrice }) =>
     isModalOpen(!modal);
     isAuth ? dispatch(createOrder(ingredients)) : navigate('/login');
   };
+
+  function closeModal() {
+    dispatch(resetOrder());
+    dispatch(resetIngredient());
+    isModalOpen(!modal);
+  }
 
   return (
     <div className={styles.constructor__total}>
@@ -37,7 +45,7 @@ const BurgerTotalBlock: FC<IBurgerTotalBlock> = ({ ingredients, totalPrice }) =>
         <p className="text text_type_main-default">Оформить заказ</p>
       </Button>
       {modal && (
-        <Modal>
+        <Modal onCloseModal={closeModal}>
           <OrderDetails />
         </Modal>
       )}

@@ -1,7 +1,8 @@
 import styles from './IngredientDetailNutrition.module.css';
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { IIngredientDetailNutrition } from '../../../../services/types/data';
 
-export default function IngredientDetailNutrition({ ingredient }) {
+const IngredientDetailNutrition: FC<IIngredientDetailNutrition> = ({ ingredient }) => {
   const ingredientCompositionArray = [
     { name: 'Калории,ккал', value: ingredient.calories },
     { name: 'Белки, г', value: ingredient.proteins },
@@ -18,8 +19,6 @@ export default function IngredientDetailNutrition({ ingredient }) {
       ))}
     </div>
   );
-}
-
-IngredientDetailNutrition.propTypes = {
-  ingredient: PropTypes.object,
 };
+
+export default IngredientDetailNutrition;

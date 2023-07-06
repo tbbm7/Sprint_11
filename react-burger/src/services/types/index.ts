@@ -1,20 +1,22 @@
 ﻿import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import store from "../store";
 import {
-    TConstructorAction,
-    TIngredientsAction,
-    TCurrenIngredientAction,
-    TOrderAction,
-    TUserActions,
-  } from "../types/data";
+  TConstructorAction,
+  TIngredientsAction,
+  TCurrenIngredientAction,
+  TOrderAction,
+  TUserActions,
+  TFeedOrdersActions
 
+} from "../types/data";
 
 type TApplicationActions =
   | TConstructorAction
   | TIngredientsAction
   | TCurrenIngredientAction
   | TOrderAction
-  | TUserActions;
+  | TUserActions
+  | TFeedOrdersActions
 
 export type RootState = ReturnType<typeof store.getState>;
 

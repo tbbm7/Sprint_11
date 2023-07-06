@@ -1,14 +1,18 @@
-import { compose, createStore } from 'redux';
-import rootReducer from './reducers/index'
+import { createStore, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { applyMiddleware } from 'redux';
+import rootReducer from './reducers/index'
+import wsMiddleware from './middleware/wsMiddleware';
+import { wsOrdersUserActions, wsOrdersActions } from './actions/wsAction';
+
+const WS_URL = "wss://norma.nomoreparties.space/orders";
 
 const composeEnhancers =
-  (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+  (typeof window === 'object' && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
+    ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+    : compose;
 
+const enhancer = composeEnhancers(applyMiddleware(thunk, wsMiddleware(WS_URL, wsOrdersActions), wsMiddleware(WS_URL, wsOrdersUserActions)))
 
- const enhancer = composeEnhancers(applyMiddleware(thunk));
-
- const store = createStore(rootReducer, enhancer);
+const store = createStore(rootReducer, enhancer);
 
 export default store

@@ -1,7 +1,8 @@
 import {
     IAddIngredient,
     IIngredient,
-    IDeleteIngredient
+    IDeleteIngredient,
+    IResetIngredient
 } from "../types/data";
 
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
@@ -28,3 +29,9 @@ export const deleteIngredient = (
         payload: ingredientUniqId,
     };
 };
+
+export const resetIngredient = (): IResetIngredient => {
+    return {
+      type: RESET_INGREDIENTS,
+    };
+  };
