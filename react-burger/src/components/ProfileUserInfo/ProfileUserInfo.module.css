@@ -1,0 +1,44 @@
+﻿.profile__main {
+    display: flex;
+    align-items: center;
+    border: solid red 1px
+  }
+  
+  .profile__content {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+  }
+  
+  .profile_navigation {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .profile_nav {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .profile_form {
+    width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .profile_button {
+    width: 196px;
+    align-self: center;
+  }
+  
+  .profile_link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 64px;
+    text-decoration: none;
+  }
+  
