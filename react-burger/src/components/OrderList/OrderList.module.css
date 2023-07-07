@@ -1,9 +1,0 @@
-﻿.order__list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin: 0 0 0;
-    overflow-y: scroll;
-    height: 75vh;
-  }
-  
