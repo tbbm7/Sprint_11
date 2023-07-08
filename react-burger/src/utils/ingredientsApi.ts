@@ -1,9 +1,4 @@
-const config = {
-  API_URL: 'https://norma.nomoreparties.space/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-};
+import {config} from "./formApi";
 
 function checkResponse(res: Response) {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
