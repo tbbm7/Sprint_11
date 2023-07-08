@@ -1,0 +1,43 @@
+﻿.order_img__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+  }
+  
+  .order_img__element {
+    margin-left: -15px;
+    width: 64px;
+    height: 64px;
+    background: #131316;
+    overflow: hidden;
+    border-radius: 50%;
+    position: relative;
+    box-sizing: border-box;
+    border: 2px solid rgba(128, 26, 178, 1);
+  }
+  
+  .order_img__element:first-child {
+    margin: 0;
+  }
+  
+  .order_img__image {
+    width: 112px;
+    height: 56px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    z-index: 1;
+  }
+  
+  .order_img__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    z-index: 15;
+  }
+  
