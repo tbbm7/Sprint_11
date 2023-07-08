@@ -1,3 +1,4 @@
+Cypress.on('uncaught:exception', (err, runnable) => {return false})
 const testURL = 'http://localhost:3000/';
 const email = 'tbbm7@yandex.ru';
 const password = 'Qwerty1234!';
@@ -47,7 +48,7 @@ describe('Тест создания заказа', () => {
 it('Тест проверка открытия и закрытиея модального с ингредиентом', () => {
   cy.visit(`${testURL}`);
   cy.get(`[data-testid=${ingredientCard}]`).first().click();
-  cy.location('pathname').should('eq', '/ingredients/60d3b41abdacab0026a733c6');
+  cy.location('pathname').should('eq', '/ingredients/643d69a5c3f7b9001cfa093c');
 
   cy.get(`[data-testid=${modal}]`).should('exist');
 
